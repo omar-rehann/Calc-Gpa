@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Calc Gpa</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <style>
+        body {
+            padding: 25px;
+            background-color: #ddd;
+            background-image: url(math.avif);
+            background-size: cover;
+            height: 100vh;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 10px;
+            width: 100%;
+            height: 50vh;
+            border-radius: 10px;
+        }
+        
+        .container .enter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .container .enter input {
+            padding: 10px;
+            border-radius: 10px;
+            width: 100%;
+            margin: 10px;
+        }
+        
+        .container .enter button {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            width: 100%;
+            border: none;
+            margin: 10px;
+            cursor: pointer;
+        }
+        
+        .container .show_data {
+            margin: 10px;
+        }
+        
+        .container .show_data div {
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="enter">
+            <input type="text" placeholder="Enter Sum Subject" class="one" />
+            <input type="text" placeholder="Enter Sum Hours" class="two" />
+            <input type="text" placeholder="Enter Sum Points" class="three" />
+            <button class="send" type="button">Calc Gpa</button>
+        </div>
+        <div class="show_data">
+            <!-- Output will be displayed here -->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        let oneinput = document.querySelector(".enter .one");
+        let twoinput = document.querySelector(".enter .two");
+        let threeinput = document.querySelector(".enter .three");
+        let btn = document.querySelector(".send");
+        let section = document.querySelector(".show_data");
+
+        btn.onclick = function() {
+            section.innerHTML = ''; // Clear previous output
+
+            if (oneinput.value === "" || twoinput.value === "" || threeinput.value === "") {
+                let element = document.createElement("div");
+                element.textContent = "Not Valid";
+                section.appendChild(element);
+                return;
+            }
+
+            if (isNaN(oneinput.value) || isNaN(twoinput.value) || isNaN(threeinput.value)) {
+                let element = document.createElement("div");
+                element.textContent = "Not Valid";
+                section.appendChild(element);
+                return;
+            }
+
+            let oneval = parseFloat(oneinput.value);
+            let twoval = parseFloat(twoinput.value);
+            let threeval = parseFloat(threeinput.value);
+
+            let gpa = (oneval + twoval) / 3;
+
+            let element = document.createElement("div");
+
+            let gpaText = `GPA = ${gpa.toFixed(2)} - `;
+            if (gpa === 0) {
+                gpaText += "This is F";
+            } else if (gpa > 0 && gpa < 1) {
+                gpaText += "This is D";
+            } else if (gpa >= 1 && gpa < 3) {
+                gpaText += "This is C";
+            } else if (gpa >= 3 && gpa < 4) {
+                gpaText += "This is B";
+            } else if (gpa >= 4 && gpa <= 5) {
+                gpaText += "This is A";
+            }
+
+            element.textContent = gpaText;
+            section.appendChild(element);
+        };
+    </script>
+</body>
+
+</html>
